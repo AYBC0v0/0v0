@@ -46,8 +46,6 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
             {
                 if (context.Message == "解除口球")
                 {
-                    Common1.List1.Add(context.FromQq);
-
                     if (context.FromQq == Common1.a)
                     {
                         Common1.i++;
