@@ -36,25 +36,25 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
             //throw new NotImplementedException();
 
             //复读计数器计数，连续两个消息内容相同，计数器+1并将发言的群成员加入复读机成员名单，反之重置计数器和名单
-            if (Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.msg == context.Message)
+            if (Common.msg == context.Message)
             {
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeatTime++;
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeaterList.Add(context.FromQq);
+                Common.repeatTime++;
+                Common.repeaterList.Add(context.FromQq);
             }
             else
             {
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.msg = context.Message;
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeaterList.Clear();
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeatTime = 0;
+                Common.msg = context.Message;
+                Common.repeaterList.Clear();
+                Common.repeatTime = 0;
             }
 
             //复读事件触发，根据执行模式进行禁言操作
-            if (Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeatTime == Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeatExecuate)
+            if (Common.repeatTime == Common.repeatExecuate)
             {
                 //正常禁言：禁言最后一个发言的复读机
-                if (Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.execuateMode==0)
+                if (Common.execuateMode==0)
                 {
-                    _mahuaApi.BanGroupMember(context.FromGroup, context.FromQq, TimeSpan.FromMinutes(Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.execuateTime));
+                    _mahuaApi.BanGroupMember(context.FromGroup, context.FromQq, TimeSpan.FromMinutes(Common.execuateTime));
                     _mahuaApi.SendGroupMessage(context.FromGroup)
                         .Text("复读机")
                         .At(context.FromQq)
@@ -63,25 +63,25 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
                 }
 
                 //随机禁言：从复读机名单中随机选择一个禁言
-                if (Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.execuateMode == 1)
+                if (Common.execuateMode == 1)
                 {
                     Random ran = new Random();
-                    int RandKey = ran.Next(0, Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeaterList.Count()-1);
-                    _mahuaApi.BanGroupMember(context.FromGroup, Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeaterList[RandKey], TimeSpan.FromMinutes(Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.execuateTime));
+                    int RandKey = ran.Next(0, Common.repeaterList.Count()-1);
+                    _mahuaApi.BanGroupMember(context.FromGroup, Common.repeaterList[RandKey], TimeSpan.FromMinutes(Common.execuateTime));
                     _mahuaApi.SendGroupMessage(context.FromGroup)
                         .Text("复读机")
-                        .At(Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeaterList[RandKey])
+                        .At(Common.repeaterList[RandKey])
                         .Text("已被当场逮捕")
                         .Done();
 
                 }
 
                 //强力禁言：禁言在复读机名单中的额所有人
-                if (Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.execuateMode==2)
+                if (Common.execuateMode==2)
                 {
-                    for(int k=0; k<=Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeaterList.Count; k++)
+                    for(int k=0; k<= Common.repeaterList.Count; k++)
                     {
-                        _mahuaApi.BanGroupMember(context.FromGroup, Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeaterList[k], TimeSpan.FromMinutes(Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.execuateTime));
+                        _mahuaApi.BanGroupMember(context.FromGroup, Common.repeaterList[k], TimeSpan.FromMinutes(Common.execuateTime));
                     }
                     _mahuaApi.SendGroupMessage(context.FromGroup)
                       .Text("所有复读机均已被逮捕")
@@ -91,13 +91,13 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
                 }
 
                 //重置计数器和复读机名单
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeatTime = 0;
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeaterList.Clear();
+                Common.repeatTime = 0;
+                Common.repeaterList.Clear();
             }
             //复读模块
             Random ran1 = new Random();
             double RandKey1 = ran1.Next(0, 100);
-            if(RandKey1 <= Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.RandMax)
+            if(RandKey1 <= Common.RandMax)
             {
                 _mahuaApi.SendGroupMessage(context.FromGroup)
                     .Text(context.Message)
@@ -106,16 +106,16 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
             //全随机模块
             Random ran2 = new Random();
             double RandKey2 = ran2.Next(0, 100);
-            if(RandKey2 <= Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.RandMax)
+            if(RandKey2 <= Common.RandMax)
             {
-                _mahuaApi.BanGroupMember(context.FromGroup, context.FromQq, TimeSpan.FromMinutes(Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.execuateTime));
+                _mahuaApi.BanGroupMember(context.FromGroup, context.FromQq, TimeSpan.FromMinutes(Common.execuateTime));
                 _mahuaApi.SendGroupMessage(context.FromGroup)
                     .At(context.FromQq)
                     .Text("已被丢入小黑屋并穿上小裙子")
                     .Done();
             }
             //口球抽奖模块
-            if(Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.msg =="口球抽奖")
+            if(Common.msg =="口球抽奖")
             {
                 Random ran3 = new Random();
                 int RandKey3 = ran3.Next(0, 43200);

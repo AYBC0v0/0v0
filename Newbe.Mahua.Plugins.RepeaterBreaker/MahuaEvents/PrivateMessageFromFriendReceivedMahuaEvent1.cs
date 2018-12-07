@@ -72,7 +72,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
             if(counter.IsMatch(context.Message)==true)
             {
                 int result = getDigit(context.Message);
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.repeatExecuate = result;
+                Common.repeatExecuate = result;
                 _mahuaApi.SendPrivateMessage(context.FromQq)
                     .Text("复读次数检测阈值已调整为 ")
                     .Text(Convert.ToString(result))
@@ -82,7 +82,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
             if(ban.IsMatch(context.Message)==true)
             {
                 int result = getDigit(context.Message);
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.execuateTime = result;
+                Common.execuateTime = result;
                 _mahuaApi.SendPrivateMessage(context.FromQq)
                     .Text("禁言时间已调整为 ")
                     .Text(Convert.ToString(result))
@@ -100,7 +100,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
                 }
                 else
                 {
-                    Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.execuateMode = result;
+                    Common.execuateMode = result;
                     switch(result)
                     {
                         case 0: _mahuaApi.SendPrivateMessage(context.FromQq)
@@ -119,7 +119,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
             if(RandMax.IsMatch(context.Message)==true)
             {
                 int result = getDigit(context.Message);
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common.RandMax = result;
+                Common.RandMax = result;
                 _mahuaApi.SendPrivateMessage(context.FromQq)
                     .Text("随机禁言概率已调整为")
                     .Text(Convert.ToString(result))
@@ -129,7 +129,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
             if(RandMin.IsMatch(context.Message)==true)
             {
                 int result = getDigit(context.Message);
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common1.RandMin = result;
+                Common1.RandMin = result;
                 _mahuaApi.SendPrivateMessage(context.FromQq)
                    .Text("解禁概率已调整为")
                    .Text(Convert.ToString(result))
@@ -139,7 +139,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
             if(p.IsMatch(context.Message)==true)
             {
                 int result = getDigit(context.Message);
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common1.p = result;
+                Common1.p = result;
                 _mahuaApi.SendPrivateMessage(context.FromQq)
                    .Text("解禁次数上限已调整为")
                    .Text(Convert.ToString(result))
@@ -149,7 +149,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
             if (i.IsMatch(context.Message) == true)
             {
                 int result = getDigit(context.Message);
-                Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents.Common1.i = result;
+                Common1.i = result;
                 _mahuaApi.SendPrivateMessage(context.FromQq)
                    .Text("计数器已调整为")
                    .Text(Convert.ToString(result))
