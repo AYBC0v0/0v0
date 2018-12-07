@@ -1,0 +1,1 @@
+基于https://github.com/CinikiC/QQbot-RepeaterBreaker进行修改和功能扩充
