@@ -1,4 +1,8 @@
 ﻿using Autofac;
+using Newbe.Mahua.MahuaEvents;
+using Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents;
+using Newbe.Mahua.Plugins.RepeaterBreaker.Services;
+using Newbe.Mahua.Plugins.RepeaterBreaker.Services.Impl;
 
 namespace Newbe.Mahua.Plugins.RepeaterBreaker
 {
@@ -14,6 +18,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker
             {
                 new PluginModule(),
                 new MahuaEventsModule(),
+                new MyServiceModule(),
             };
         }
 
@@ -50,7 +55,27 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker
                     .As<Mahua.MahuaEvents.IPrivateMessageFromFriendReceivedMahuaEvent>();
                 builder.RegisterType<MahuaEvents.PrivateMessageFromGroupReceivedMahuaEvent>()
                     .As<Mahua.MahuaEvents.IPrivateMessageFromGroupReceivedMahuaEvent>();
+                builder.RegisterType<MahuaEvents.InitializationMahuaEvent>()
+                    .As<Mahua.MahuaEvents.IInitializationMahuaEvent>();
                 // 将需要监听的事件注册，若缺少此注册，则不会调用相关的实现类
+            }
+        }
+        private class MyServiceModule : Module
+        {
+            protected override void Load(ContainerBuilder builder)
+            {
+                base.Load(builder);
+                // 确保Web服务是单例
+                builder.RegisterType<OwinWebHost>()
+                    .As<IWebHost>()
+                    .SingleInstance();
+
+                // AsSelf是为了Hangfire能够初始化这个类
+                builder.RegisterType<Livegirl>()
+                    .As<ILivegirl>()
+                    .AsSelf();
+                builder.RegisterType<LiveRoom>()
+                    .As<ILiveRoom>();
             }
         }
     }

@@ -14,7 +14,6 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
         public static int execuateTime = 3;   //禁言时间
         public static int execuateMode = 1;   //执行模式
         public static double RandMax = 0.5;   //禁言阈值
-        public static int a = 1;   //开关
     }
     /// <summary>
     /// 群消息接收事件
@@ -129,6 +128,8 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
                     .Done();
                 
             }
+            //骑空士杀手
+
             // 不要忘记在MahuaModule中注册
             }
     }

@@ -1,6 +1,7 @@
 ﻿using Newbe.Mahua.MahuaEvents;
 using System;
 using System.Text.RegularExpressions;
+using Newbe.Mahua.Plugins.RepeaterBreaker.Services;
 
 namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
 {
@@ -11,6 +12,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
         : IPrivateMessageFromFriendReceivedMahuaEvent
     {
         private readonly IMahuaApi _mahuaApi;
+        private readonly ILivegirl _livegirl;
 
         //getDigit()函数从字符串中截取出数字并转换成整型
         public int getDigit(string str)
@@ -50,7 +52,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
                 .Newline()
                 .Text("设置禁言时间 banTime=X X代表禁言时间，单位分钟")
                 .Newline()
-                .Text("调整执行模式 modeSet=X X取0、1、2、3，分别代表只禁言最后一个复读机，随机禁言一个复读机，禁言所有的复读机")
+                .Text("调整执行模式 modeSet=X X取0、1、2，分别代表只禁言最后一个复读机，随机禁言一个复读机，禁言所有的复读机")
                 .Newline()
                 .Text("RandMax=X 禁言随机阈值X")
                 .Newline()
@@ -154,6 +156,18 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
                    .Text("计数器已调整为")
                    .Text(Convert.ToString(result))
                    .Done();
+            }
+            if (context.FromQq == "384323693")
+            {
+                switch (context.Message)
+                {
+                    case "直播姬起飞":
+                        _livegirl.StartAsync().GetAwaiter().GetResult();
+                        break;
+                    case "直播姬降落":
+                        _livegirl.StopAsnyc().GetAwaiter().GetResult();
+                        break;
+                }
             }
             // 不要忘记在MahuaModule中注册
         }
