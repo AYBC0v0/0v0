@@ -32,9 +32,11 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
         }
 
         public PrivateMessageFromFriendReceivedMahuaEvent1(
+            ILivegirl livegirl,
             IMahuaApi mahuaApi)
         {
             _mahuaApi = mahuaApi;
+            _livegirl = livegirl;
         }
 
         public void ProcessFriendMessage(PrivateMessageFromFriendReceivedContext context)
@@ -71,7 +73,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
             Regex i = new Regex("i");
 
             //根据不同的输入命令调整相应的参数值
-            if(counter.IsMatch(context.Message)==true)
+            if (counter.IsMatch(context.Message)==true)
             {
                 int result = getDigit(context.Message);
                 Common.repeatExecuate = result;
@@ -81,7 +83,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
                     .Done();
             }
             
-            if(ban.IsMatch(context.Message)==true)
+            if (ban.IsMatch(context.Message)==true)
             {
                 int result = getDigit(context.Message);
                 Common.execuateTime = result;
@@ -91,7 +93,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
                     .Done();
             }
 
-            if(mode.IsMatch(context.Message)==true)
+            if (mode.IsMatch(context.Message)==true)
             {
                 int result = getDigit(context.Message);
                 if(result<0||result>2)
@@ -118,7 +120,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
                 }
             }
 
-            if(RandMax.IsMatch(context.Message)==true)
+            if (RandMax.IsMatch(context.Message)==true)
             {
                 int result = getDigit(context.Message);
                 Common.RandMax = result;
@@ -128,7 +130,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
                     .Done();
             }
 
-            if(RandMin.IsMatch(context.Message)==true)
+            if (RandMin.IsMatch(context.Message)==true)
             {
                 int result = getDigit(context.Message);
                 Common1.RandMin = result;
@@ -138,7 +140,7 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.MahuaEvents
                    .Done();
             }
 
-            if(p.IsMatch(context.Message)==true)
+            if (p.IsMatch(context.Message)==true)
             {
                 int result = getDigit(context.Message);
                 Common1.p = result;

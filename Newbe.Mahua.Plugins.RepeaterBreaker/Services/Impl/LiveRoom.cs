@@ -17,8 +17,6 @@ namespace Newbe.Mahua.Plugins.RepeaterBreaker.Services.Impl
             return false;
         }
 
-        // 可以使用VS中的 编辑->选择性粘贴->将JSON粘贴为类
-        // 莫非不知道么ლ(′◉❥◉｀ლ)
         public class Rootobject
         {
             public int code { get; set; }
